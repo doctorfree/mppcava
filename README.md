@@ -1,5 +1,7 @@
 # MPPCAVA
 
+[![Build Status](https://github.com/doctorfree/mppcava/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/doctorfree/mppcava/actions/workflows/build-and-test.yml)
+
 **M**usic**P**layer**P**lus **C**ross-platform **A**udio **V**isu**a**lizer
 
 by [Karl Stavestrand](mailto:karl@stavestrand.no) modified and integrated by [Ronald Record](mailto:ronaldrecord@gmail.com)
