@@ -1,0 +1,71 @@
+# Maintainer: Ronald Record <github@ronrecord.com>
+
+pkgname=mppcava
+pkgver=v1.0.1r1
+pkgrel=1
+pkgdesc="Character based audio spectrum visualizer"
+arch=('x86_64' 'armv7h')
+url="https://github.com/doctorfree/mppcava"
+license=('MIT')
+depends=('fftw' 'alsa-lib' 'ncurses' 'iniparser' 'sndio' 'portaudio')
+optdepends=('pulseaudio')
+makedepends=('autoconf-archive' 'sndio' 'portaudio' 'libpulse')
+install=mppcava.install
+source=("${pkgname}::git+https://github.com/doctorfree/mppcava.git#tag=${pkgver}")
+sha256sums=('SKIP')
+
+prepare() {
+  cd "${srcdir}/${pkgname}"
+}
+
+build() {
+  cd "${srcdir}/${pkgname}"
+  # Build mppcava
+  if [ -x scripts/build-mppcava.sh ]
+  then
+    scripts/build-mppcava.sh
+  else
+    make clean
+    make distclean
+    [ -x ./configure ] || ./autogen.sh > /dev/null
+    ./configure --prefix=/usr > configure$$.out
+    make > make$$.out
+  fi
+}
+
+package() {
+  cd "${srcdir}/${pkgname}"
+  destdir=usr
+  for dir in "${destdir}" "${destdir}/share" "${destdir}/share/man" \
+    "${destdir}/share/doc" \
+    "${destdir}/share/doc/${pkgname}" "${destdir}/share/${pkgname}" \
+    "${destdir}/share/consolefonts" "${destdir}/share/licenses" \
+    "${destdir}/share/licenses/${pkgname}"
+  do
+    [ -d ${pkgdir}/${dir} ] || mkdir ${pkgdir}/${dir}
+  done
+
+  for dir in bin
+  do
+    [ -d ${pkgdir}/${destdir}/${dir} ] && rm -rf ${pkgdir}/${destdir}/${dir}
+  done
+
+  cp mppcava ${pkgdir}/${destdir}/bin/mppcava
+  cp mppcava.psf ${pkgdir}/${destdir}/share/consolefonts
+  cp copyright ${pkgdir}/${destdir}/share/doc/${pkgname}
+  cp LICENSE ${pkgdir}/${destdir}/share/doc/${pkgname}
+  cp LICENSE ${pkgdir}/${destdir}/share/licenses/${pkgname}
+  cp CHANGELOG.md ${pkgdir}/${destdir}/share/doc/${pkgname}
+  cp README.md ${pkgdir}/${destdir}/share/doc/${pkgname}
+  gzip -9 ${pkgdir}/${destdir}/share/doc/${pkgname}/CHANGELOG.md
+
+  cp example_files/config ${pkgdir}/${destdir}/share/${pkgname}/template.conf
+
+  cp -a man/man1 ${pkgdir}/${destdir}/share/man/man1
+
+  chmod 644 ${pkgdir}/${destdir}/share/man/*/*
+  chmod 755 ${pkgdir}/${destdir}/bin/* \
+            ${pkgdir}/${destdir}/bin \
+            ${pkgdir}/${destdir}/share/man \
+            ${pkgdir}/${destdir}/share/man/*
+}

@@ -1,0 +1,41 @@
+#!/bin/bash
+
+arch=
+centos=
+debian=
+fedora=
+
+export __MPP_SRC__=`pwd`
+
+[ -f /etc/os-release ] && . /etc/os-release
+[ "${ID_LIKE}" == "debian" ] && debian=1
+[ "${ID}" == "arch" ] || [ "${ID_LIKE}" == "arch" ] && arch=1
+[ "${ID}" == "centos" ] && centos=1
+[ "${ID}" == "fedora" ] && fedora=1
+[ "${debian}" ] || [ -f /etc/debian_version ] && debian=1
+
+if [ "${debian}" ]
+then
+  sudo apt update
+  scripts/mkdeb.sh
+else
+  if [ "${arch}" ]
+  then
+    sudo pacman -Syy
+    scripts/mkaur.sh
+  else
+    if [ "${centos}" ]
+    then
+      sudo dnf update
+      scripts/mkrpm.sh centos
+    else
+      if [ "${fedora}" ]
+      then
+        sudo dnf update
+        scripts/mkrpm.sh fedora
+      else
+        echo "Unsupported platform"
+      fi
+    fi
+  fi
+fi
