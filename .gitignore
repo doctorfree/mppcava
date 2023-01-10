@@ -26,3 +26,13 @@ missing
 version
 config_file.h
 .*
+dist/*
+releases/*
+tmp/*
+# vim files
+.*.sw[a-z]
+*.un~
+Session.vim
+.netrwhist
+tmux*log
+.DS_Store
