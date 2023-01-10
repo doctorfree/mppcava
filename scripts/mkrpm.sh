@@ -3,13 +3,19 @@ PKG="mppcava"
 SRC_NAME="mppcava"
 PKG_NAME="mppcava"
 DESTDIR="usr"
-SRC=${HOME}/src
 SUDO=sudo
 GCI=
 
-[ -f "${SRC}/${SRC_NAME}/VERSION" ] || {
+if [ "${__MPP_SRC__}" ]
+then
+  SRC="${__MPP_SRC__}"
+else
+  SRC="${HOME}/src/${SRC_NAME}"
+fi
+
+[ -f "${SRC}/VERSION" ] || {
   [ -f "/builds/doctorfree/${SRC_NAME}/VERSION" ] || {
-    echo "$SRC/$SRC_NAME/VERSION does not exist. Exiting."
+    echo "$SRC/VERSION does not exist. Exiting."
     exit 1
   }
   SRC="/builds/doctorfree"
@@ -17,7 +23,7 @@ GCI=
   GCI=1
 }
 
-. "${SRC}/${SRC_NAME}/VERSION"
+. "${SRC}/VERSION"
 PKG_VER=${VERSION}
 PKG_REL=${RELEASE}
 
@@ -26,12 +32,12 @@ umask 0022
 # Subdirectory in which to create the distribution files
 OUT_DIR="dist/${PKG_NAME}_${PKG_VER}"
 
-[ -d "${SRC}/${SRC_NAME}" ] || {
-    echo "$SRC/$SRC_NAME does not exist or is not a directory. Exiting."
+[ -d "${SRC}" ] || {
+    echo "$SRC does not exist or is not a directory. Exiting."
     exit 1
 }
 
-cd "${SRC}/${SRC_NAME}"
+cd "${SRC}"
 
 # Build mppcava
 if [ -x scripts/build-mppcava.sh ]
@@ -109,7 +115,7 @@ rpmbuild -ba --build-in-place \
    --define "_sourcedir ${OUT_DIR}" \
    --define "_version ${PKG_VER}" \
    --define "_release ${PKG_REL}" \
-   --buildroot ${SRC}/${SRC_NAME}/${OUT_DIR}/BUILDROOT \
+   --buildroot ${SRC}/${OUT_DIR}/BUILDROOT \
    ${OUT_DIR}/rpm/${PKG_NAME}.spec
 
 # Rename RPMs if necessary
