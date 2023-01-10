@@ -1,4 +1,5 @@
-cava
+mppcava
+cavacore_test
 *.so
 *.so.0
 *.o
