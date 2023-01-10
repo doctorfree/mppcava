@@ -26,6 +26,7 @@ missing
 version
 config_file.h
 .*
+!pkg/aur/.SRCINFO
 dist/*
 releases/*
 tmp/*

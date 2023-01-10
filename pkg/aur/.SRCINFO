@@ -1,0 +1,24 @@
+pkgbase = mppcava
+	pkgdesc = Character based audio spectrum visualizer
+	pkgver = v1.0.1r1
+	pkgrel = 1
+	url = https://github.com/doctorfree/mppcava
+	install = mppcava.install
+	arch = x86_64
+	arch = armv7h
+	license = MIT
+	makedepends = autoconf-archive
+	makedepends = sndio
+	makedepends = portaudio
+	makedepends = libpulse
+	depends = fftw
+	depends = alsa-lib
+	depends = ncurses
+	depends = iniparser
+	depends = sndio
+	depends = portaudio
+	optdepends = pulseaudio
+	source = mppcava::git+https://github.com/doctorfree/mppcava.git#tag=v1.0.1r1
+	sha256sums = SKIP
+
+pkgname = mppcava
