@@ -1,11 +1,8 @@
-C.A.V.A. [![Build Status](https://github.com/karlstav/cava/workflows/build-and-test/badge.svg)](https://github.com/karlstav/cava/actions)
-====================
+# MPPCAVA
 
-**C**onsole-based **A**udio **V**isualizer for **A**LSA
+**M**usic**P**layer**P**lus **C**ross-platform **A**udio **V**isu**a**lizer
 
-also supports audio input from Pulseaudio, fifo (mpd), sndio, squeezelite and portaudio (macOS).
-
-by [Karl Stavestrand](mailto:karl@stavestrand.no)
+by [Karl Stavestrand](mailto:karl@stavestrand.no) modified and integrated by [Ronald Record](mailto:ronaldrecord@gmail.com)
 
 ![spectrum](https://github.com/karlstav/cava/blob/master/example_files/cava.gif "spectrum")
 
@@ -14,21 +11,21 @@ by [Karl Stavestrand](mailto:karl@stavestrand.no)
 - [What it is](#what-it-is)
 - [Installing](#installing)
   - [From Source](#from-source)
-  - [Some distro specific pre-made binaries/recipes](#some-distro-specific-pre-made-binariesrecipes)
+  - [Package managers](#package-managers)
 - [Capturing audio](#capturing-audio)
   - [Pulseaudio](#pulseaudio)
   - [ALSA](#alsa)
   - [MPD](#mpd)
   - [sndio](#sndio)
   - [squeezelite](#squeezelite)
-  - [macOS](#macos)
-  - [WSL](#wsl)
+  - [macOS](#macos-1)
+  - [Windows](#windows)
 - [Running via ssh](#running-via-ssh)
 - [Troubleshooting](#troubleshooting)
 - [Usage](#usage)
   - [Controls](#controls)
 - [Configuration](#configuration)
-- [Using cava in other applications](#using-cava-in-other-applications)
+- [Using mppcava in other applications](#using-mppcava-in-other-applications)
   - [cavacore](#cavacore-library)
   - [Raw Output](#raw-output)
 - [Contribution](#contribution)
@@ -38,7 +35,13 @@ by [Karl Stavestrand](mailto:karl@stavestrand.no)
 What it is
 ----------
 
-C.A.V.A. is a bar spectrum audio visualizer for the Linux terminal using ALSA, pulseaudio or fifo buffer for input.
+Cava is a bar spectrum audio visualizer for terminal (ncurses) or desktop (SDL).
+
+works on:
+* Linux
+* FreeBSD
+* macOS
+* Windows
 
 This program is not intended for scientific use. It's written to look responsive and aesthetic when used to visualize music. 
 
@@ -54,6 +57,7 @@ Required components:
 * [FFTW](http://www.fftw.org/)
 * libtool
 * automake
+* autoconf-archive (needed for setting up OpenGL)
 * build-essentials
 * [iniparser](https://github.com/ndevilla/iniparser)
 
@@ -77,7 +81,7 @@ All the requirements can be installed easily in all major distros:
 
 Debian Buster or higher/Ubuntu 18.04 or higher:
 
-    apt install libfftw3-dev libasound2-dev libncursesw5-dev libpulse-dev libtool automake libiniparser-dev libsdl2-2.0-0 libsdl2-dev
+    apt install libfftw3-dev libasound2-dev libncursesw5-dev libpulse-dev libtool automake autoconf-archive libiniparser-dev libsdl2-2.0-0 libsdl2-dev
 
 
 older Debian/Ubuntu:
@@ -87,17 +91,17 @@ older Debian/Ubuntu:
 
 ArchLinux:
 
-    pacman -S base-devel fftw ncurses alsa-lib iniparser pulseaudio
+    pacman -S base-devel fftw ncurses alsa-lib iniparser pulseaudio autoconf-archive
 
 
 openSUSE:
 
-    zypper install alsa-devel ncurses-devel fftw3-devel libpulse-devel libtool
+    zypper install alsa-devel ncurses-devel fftw3-devel libpulse-devel libtool autoconf-archive
 
 
 Fedora:
 
-    dnf install alsa-lib-devel ncurses-devel fftw3-devel pulseaudio-libs-devel libtool
+    dnf install alsa-lib-devel ncurses-devel fftw3-devel pulseaudio-libs-devel libtool autoconf-archive
 
     
 macOS:
@@ -108,7 +112,7 @@ First install homebrew if you have't already:
 
 Then install prerequisites:
 
-    brew install fftw ncurses libtool automake portaudio
+    brew install fftw ncurses libtool automake autoconf-archive portaudio
     
 Then fix macOS not finding libtool and ncursesw:
 
@@ -120,6 +124,10 @@ Then fix macOS not finding libtool and ncursesw:
 Tested on macOS Big Sur
 
 
+Windows:
+
+see separate readme in `cava_win` folder.
+
 #### Building
  First of all clone this repo and cd in to it, then run:
  
@@ -129,11 +137,11 @@ Tested on macOS Big Sur
 
 If you have a recommended component installed, but do not wish to use it (perhaps if building a binary on one machine to be used on another), then the corresponding feature can be disabled during configuration (see configure --help for details).
 
-
+For windows there is a VS solution file in the `cava_win` folder.
     
 #### Installing 
 
-Install `cava` to default `/usr/local`:
+Install `mppcava` to default `/usr/local`:
 
     make install
 
@@ -146,7 +154,7 @@ Or you can change `PREFIX`, for example:
     make uninstall
 
 
-### Some distro specific pre-made binaries/recipes
+### Package managers
 
 All distro specific instalation sources might be out of date. Please check version before reporting any issues here.
 
@@ -203,9 +211,9 @@ Capturing audio
 
 ### Pulseaudio
 
-Just make sure you have installed pulseaudio dev files and that cava has been built with pulseaudio support (it should be automatically if the dev files are found).
+Just make sure you have installed pulseaudio dev files and that mppcava has been built with pulseaudio support (it should be automatically if the dev files are found).
 
-If you're lucky all you have to do is to run cava.
+If you're lucky all you have to do is to run mppcava.
  
 If nothing happens you might have to use a different source than the default. The default might also be your microphone. Look at the [config](#configuration) file for help. 
 
@@ -228,7 +236,7 @@ Hopefully your `aplay -l` should now contain a loopback interface.
 
 To make it persistent across boot add the line `snd-aloop` to "/etc/modules". To keep it from being loaded as the first soundcard add the line `options snd-aloop index=1` to "/etc/modprobe.d/alsa-base.conf", this will load it at '1'. You can replace '1' with whatever makes most sense in your audio setup.
 
-Playing the audio through your Loopback interface makes it possible for cava to capture it, but there will be no sound in your speakers. In order to play audio on the loopback interface and your actual interface you must make use of the ALSA multi channel.
+Playing the audio through your Loopback interface makes it possible for mppcava to capture it, but there will be no sound in your speakers. In order to play audio on the loopback interface and your actual interface you must make use of the ALSA multi channel.
 
 Look at the included example file `example_files/etc/asound.conf` on how to use the multi channel. I was able to make this work on my laptop (an Asus UX31 running Ubuntu), but I had no luck with the ALSA method on my Raspberry Pi (Rasbian) with an USB DAC. The PulseAudio method however works perfectly on my Pi. 
 
@@ -274,8 +282,8 @@ To test it
 $ sndiod -dd -s default -m mon -s monitor
 
 # Set the AUDIODEVICE environment variable to override the default
-# sndio device and run cava
-$ AUDIODEVICE=snd/0.monitor cava
+# sndio device and run mppcava
+$ AUDIODEVICE=snd/0.monitor mppcava
 ```
 
 ### squeezelite
@@ -312,10 +320,9 @@ method = portaudio
 source = "Soundflower (2ch)"
 ```
 
-### WSL
+### Windows
 
-@quantum5 has written a handy tool called [winscap](https://github.com/quantum5/winscap) to capture audio from Windows and output it to stdout.
-This way cava can be used in a terminal running windows subsystem for linux. Just follow the instructions in the readme on how to set it up with cava.
+Should capture the audio from the default output device automatically.
 
 
 Running via ssh
@@ -323,7 +330,7 @@ Running via ssh
 
 To run via ssh to an external monitor, redirect output to `/dev/console`:
 
-     ~# ./cava  <> /dev/console >&0 2>&1
+     ~# ./mppcava  <> /dev/console >&0 2>&1
 
 exit with ctrl+z then run 'bg' to keep it running after you log out.
 
@@ -334,7 +341,7 @@ exit with ctrl+z then run 'bg' to keep it running after you log out.
 
 ### No bars in terminal
 
-Most likley issue [#399](https://github.com/karlstav/cava/issues/399). Locale settings need to be set correctly in order for cava to work.
+Most likley issue [#399](https://github.com/karlstav/cava/issues/399). Locale settings need to be set correctly in order for mppcava to work.
 
 ### Visualizer reacts to microphone instead of output
 
@@ -342,7 +349,7 @@ This is a known issue with pipewire. Try the workaround described [here](https:/
 
 ### Vertical lines in bars
 
-This is either an issue with the font, or line spacing being enabled in the terminal emulater. Try to change font or disable line spacing.
+This is either an issue with the font, or line spacing being enabled in the terminal emulator. Try to change font or disable line spacing.
 
 ### Low resolution
 
@@ -354,19 +361,19 @@ Some terminal emulators are just slow. Cava will look best in a GPU based termin
 
 ### Font is changed in ttys after exit
 
-If you run cava in a TTY (like ctrl+alt+F2) the program will change the font to the included `mppcava.psf` (actually a slightly modified "unifont").
+If you run mppcava in a TTY (like ctrl+alt+F2) the program will change the font to the included `mppcava.psf` (actually a slightly modified "unifont").
 
 In console fonts it seems that only 256 Unicode characters are supported, probably because they are bitmap fonts. I could not find a font with Unicode characters 2581-2587 (the 1/8 - 7/8 blocks used on the top of each bar to increase resolution).
 
-So in `mppcava.psf`, the characters 1-7 are actually replaced by Unicode characters 2581-2587. When cava exits, it changes the font back. If cava exits abnormally and you notice that 1-7 are replaced by partial blocks, just change the font with `setfont`.
+So in `mppcava.psf`, the characters 1-7 are actually replaced by Unicode characters 2581-2587. When mppcava exits, it changes the font back. If mppcava exits abnormally and you notice that 1-7 are replaced by partial blocks, just change the font with `setfont`.
 
-Actually, `setfont` is supposed to return the default font, but this usually isn't set. I haven't found another way to get the current font. So cava sets the font to "Lat2-Fixed16" when interrupted. All major distros should have it. It will revert to your default font at reboot.
+Actually, `setfont` is supposed to return the default font, but this usually isn't set. I haven't found another way to get the current font. So mppcava sets the font to "Lat2-Fixed16" when interrupted. All major distros should have it. It will revert to your default font at reboot.
 
 
 Usage
 -----
 
-    Usage : cava [options]
+    Usage : mppcava [options]
     Visualize audio input in terminal. 
 
     Options:
@@ -377,7 +384,7 @@ Usage
 
 Exit with ctrl+c or q.
 
-If cava quits unexpectedly or is force killed, echo must be turned on manually with `stty -echo`.
+If mppcava quits unexpectedly or is force killed, echo must be turned on manually with `stty -echo`.
 
 ### Controls
 
@@ -397,22 +404,20 @@ Configuration
 
 As of version 0.4.0 all options are done in the config file, no more command-line arguments!
 
-By default a configuration file is created upon first launch in `$XDG_CONFIG_HOME/cava/config` or `$HOME/.config/cava/config`, but cava can also be made to use a different file with the `-p` option.
+By default a configuration file is created upon first launch in `$XDG_CONFIG_HOME/mppcava/config` or `$HOME/.config/mppcava/config`, but mppcava can also be made to use a different file with the `-p` option.
 
-Sending cava a SIGUSR1 signal, will force cava to reload its configuration file. Thus, it behaves as if the user pressed <kbd>r</kbd> in the terminal. One might send a SIGUSR1 signal using `pkill` or `killall`.
+Sending mppcava a SIGUSR1 signal, will force mppcava to reload its configuration file. Thus, it behaves as if the user pressed <kbd>r</kbd> in the terminal. One might send a SIGUSR1 signal using `pkill` or `killall`.
 For example:
 ```
-$ pkill -USR1 cava
+$ pkill -USR1 mppcava
 ```
 
-Similarly, sending cava a SIGUSR2 signal will only reload the colors from the configuration file, which is the same as pressing <kbd>c</kbd> in the terminal. This is slightly faster than reloading the entire config as the audio processing does not need to reinitialize.  
+Similarly, sending mppcava a SIGUSR2 signal will only reload the colors from the configuration file, which is the same as pressing <kbd>c</kbd> in the terminal. This is slightly faster than reloading the entire config as the audio processing does not need to reinitialize.  
 ```
-$ pkill -USR2 cava
+$ pkill -USR2 mppcava
 ```
 
 **Examples on how the equalizer works:**
-
-The equalizer is DEPRECATED as of 0.8.0, can be brought back by popular request.
 
     [eq]
     1=0
@@ -433,12 +438,12 @@ The equalizer is DEPRECATED as of 0.8.0, can be brought back by popular request.
 ![3_139](https://cloud.githubusercontent.com/assets/6376571/8670181/9db0ef50-29e8-11e5-81bc-3e2bb9892da0.png)
 
 
-Using cava in other applications
+Using mppcava in other applications
 --------------------------------
 
 ### cavacore library
 
-The core processing engine in cava has been split into a separate library `cavacore`. See CAVACORE.md for details.
+The core processing engine in mppcava has been split into a separate library `cavacore`. See CAVACORE.md for details.
 
 ### Raw Output
 

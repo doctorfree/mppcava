@@ -8,7 +8,7 @@ assignees: ''
 ---
 
 **When/where was the bug introduced?**
-- Are you using cava from a package repository, like AUR?
+- Are you using mppcava from a package repository, like AUR?
 - If so, check out the master branch here, is your issue already resolved?
 - Don't know how to clone, compile source code? File report to package maintainer instead.
 - try using git bisect to find out where the bug was introduced.
