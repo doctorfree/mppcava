@@ -37,17 +37,12 @@ package() {
   cd "${srcdir}/${pkgname}"
   destdir=usr
   for dir in "${destdir}" "${destdir}/share" "${destdir}/share/man" \
-    "${destdir}/share/doc" \
+    "${destdir}/share/doc" "${destdir}/bin" \
     "${destdir}/share/doc/${pkgname}" "${destdir}/share/${pkgname}" \
     "${destdir}/share/consolefonts" "${destdir}/share/licenses" \
     "${destdir}/share/licenses/${pkgname}"
   do
     [ -d ${pkgdir}/${dir} ] || mkdir ${pkgdir}/${dir}
-  done
-
-  for dir in bin
-  do
-    [ -d ${pkgdir}/${destdir}/${dir} ] && rm -rf ${pkgdir}/${destdir}/${dir}
   done
 
   cp mppcava ${pkgdir}/${destdir}/bin/mppcava
