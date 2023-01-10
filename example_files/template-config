@@ -32,27 +32,28 @@
 ; bar_spacing = 5
 
 # sdl_glsl have these default values, they are only used to calulate max number of bars.
-; bar_width = 1
+bar_width = 1
 ; bar_spacing = 0
 
 
 # Lower and higher cutoff frequencies for lowest and highest bars
 # the bandwidth of the visualizer.
 # Note: there is a minimum total bandwidth of 43Mhz x number of bars.
-# Cava will automatically increase the higher cutoff if a too low band is specified.
+# Mppcava will automatically increase the higher cutoff if a too low band is specified.
 ; lower_cutoff_freq = 50
 ; higher_cutoff_freq = 10000
+higher_cutoff_freq = 20000
 
 
-# Seconds with no input before cava goes to sleep mode. Cava will not perform FFT or drawing and
-# only check for input once per second. Cava will wake up once input is detected. 0 = disable.
+# Seconds with no input before mppcava goes to sleep mode. Mppcava will not perform FFT or drawing and
+# only check for input once per second. Mppcava will wake up once input is detected. 0 = disable.
 ; sleep_timer = 0
 
 
 [input]
 
 # Audio capturing method. Possible methods are: 'pulse', 'alsa', 'fifo', 'sndio' or 'shmem'
-# Defaults to 'pulse', 'alsa' or 'fifo', in that order, dependent on what support cava was built with.
+# Defaults to 'pulse', 'alsa' or 'fifo', in that order, dependent on what support mppcava was built with.
 # On windows this is automatic and no input settings are needed.
 #
 # All input methods uses the same config variable 'source'
@@ -70,10 +71,10 @@
 ; method = alsa
 ; source = hw:Loopback,1
 
-; method = fifo
-; source = /tmp/mpd.fifo
-; sample_rate = 44100
-; sample_bits = 16
+method = fifo
+source = /home/USERNAME/.config/mpd/mpd.fifo
+sample_rate = 44100
+sample_bits = 16
 
 ; method = shmem
 ; source = /squeezelite-AA:BB:CC:DD:EE:FF
@@ -149,7 +150,7 @@
 # defaults to off since the behaviour in other terminal emulators is unknown
 ; alacritty_sync = 0
 
-# Shaders for sdl_glsl, located in $HOME/.config/cava/shaders
+# Shaders for sdl_glsl, located in $HOME/.config/mppcava/shaders
 ; vertex_shader = pass_through.vert
 ; fragment_shader = normalized_bars.frag
 
@@ -173,17 +174,16 @@
 # Gradient mode, only hex defined colors are supported,
 # background must also be defined in hex or remain commented out. 1 = on, 0 = off.
 # You can define as many as 8 different colors. They range from bottom to top of screen
-; gradient = 0
-; gradient_count = 8
-; gradient_color_1 = '#59cc33'
-; gradient_color_2 = '#80cc33'
-; gradient_color_3 = '#a6cc33'
-; gradient_color_4 = '#cccc33'
-; gradient_color_5 = '#cca633'
-; gradient_color_6 = '#cc8033'
-; gradient_color_7 = '#cc5933'
-; gradient_color_8 = '#cc3333'
-
+gradient = 1
+gradient_count = 8
+gradient_color_1 = '#59cc33'
+gradient_color_2 = '#80cc33'
+gradient_color_3 = '#a6cc33'
+gradient_color_4 = '#cccc33'
+gradient_color_5 = '#cca633'
+gradient_color_6 = '#cc8033'
+gradient_color_7 = '#cc5933'
+gradient_color_8 = '#cc3333'
 
 
 [smoothing]
@@ -210,7 +210,7 @@
 # Noise reduction, int 0 - 100. default 77
 # the raw visualization is very noisy, this factor adjusts the integral and gravity filters to keep the signal smooth
 # 1 will be very slow and smooth, 0 will be fast but noisy.
-; noise_reduction = 77
+noise_reduction = 77
 
 
 [eq]

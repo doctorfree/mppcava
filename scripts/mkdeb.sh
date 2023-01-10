@@ -106,7 +106,8 @@ ${SUDO} cp CHANGELOG.md ${OUT_DIR}/${DESTDIR}/share/doc/${PKG}
 ${SUDO} cp README.md ${OUT_DIR}/${DESTDIR}/share/doc/${PKG}
 ${SUDO} gzip -9 ${OUT_DIR}/${DESTDIR}/share/doc/${PKG}/CHANGELOG.md
 
-${SUDO} cp example_files/config ${OUT_DIR}/${DESTDIR}/share/${PKG}/template.conf
+${SUDO} cp example_files/config ${OUT_DIR}/${DESTDIR}/share/${PKG}/config
+${SUDO} cp example_files/template-config ${OUT_DIR}/${DESTDIR}/share/${PKG}/template.conf
 
 ${SUDO} cp -a man/man1 ${OUT_DIR}/${DESTDIR}/share/man/man1
 
