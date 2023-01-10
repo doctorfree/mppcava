@@ -94,10 +94,8 @@ do
     ${SUDO} chown root:root ${OUT_DIR}/${dir}
 done
 
-for dir in bin
-do
-    [ -d ${OUT_DIR}/${DESTDIR}/${dir} ] && ${SUDO} rm -rf ${OUT_DIR}/${DESTDIR}/${dir}
-done
+[ -d ${OUT_DIR}/${DESTDIR}/bin ] && ${SUDO} rm -rf ${OUT_DIR}/${DESTDIR}/bin
+mkdir -p ${OUT_DIR}/${DESTDIR}/bin
 
 ${SUDO} cp mppcava ${OUT_DIR}/${DESTDIR}/bin/mppcava
 ${SUDO} cp mppcava.psf ${OUT_DIR}/${DESTDIR}/share/consolefonts
