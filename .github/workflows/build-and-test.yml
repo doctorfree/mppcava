@@ -29,13 +29,13 @@ jobs:
         pulseaudio -D
         squeezelite -o pulse -v -m 51:fb:32:f8:e6:9f -z
     - name: run non zero test
-      run: ./cava -p example_files/test_configs/non_zero_test > /dev/null
+      run: ./mppcava -p example_files/test_configs/non_zero_test > /dev/null
     - name: run pulseaudio test
-      run: ./cava -p example_files/test_configs/pulse_zero_test > /dev/null
+      run: ./mppcava -p example_files/test_configs/pulse_zero_test > /dev/null
     - name: run fifo test
-      run: ./cava -p example_files/test_configs/fifo_zero_test > /dev/null
+      run: ./mppcava -p example_files/test_configs/fifo_zero_test > /dev/null
     - name: run shmem test
-      run: ./cava -p example_files/test_configs/shmem_zero_test > /dev/null
+      run: ./mppcava -p example_files/test_configs/shmem_zero_test > /dev/null
     - name: build cavacore test application
       run: gcc -c -g cavacore_test.c
     - name: link cavacore test application
@@ -58,6 +58,6 @@ jobs:
     - name: Run make
       run: make CFLAGS='-Werror'
     - name: run non zero test
-      run: ./cava -p example_files/test_configs/non_zero_test > /dev/null
+      run: ./mppcava -p example_files/test_configs/non_zero_test > /dev/null
     - name: run portaudio test
-      run: ./cava -p example_files/test_configs/portaudio_zero_test > /dev/null
+      run: ./mppcava -p example_files/test_configs/portaudio_zero_test > /dev/null

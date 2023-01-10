@@ -43,8 +43,8 @@ void init_sdl_window(int width, int height, int x, int y) {
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
     } else {
-        gWindow =
-            SDL_CreateWindow("mppcava", x, y, width, height, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
+        gWindow = SDL_CreateWindow("mppcava", x, y, width, height,
+                                   SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
         if (gWindow == NULL) {
             printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
         } else {

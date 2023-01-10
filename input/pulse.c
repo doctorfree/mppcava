@@ -116,8 +116,8 @@ void *input_pulse(void *data) {
     pa_simple *s = NULL;
     int error;
 
-    if (!(s = pa_simple_new(NULL, "mppcava", PA_STREAM_RECORD, audio->source, "audio for mppcava", &ss,
-                            NULL, &pb, &error))) {
+    if (!(s = pa_simple_new(NULL, "mppcava", PA_STREAM_RECORD, audio->source,
+                         "audio for mppcava", &ss, NULL, &pb, &error))) {
         sprintf(audio->error_message, __FILE__ ": Could not open pulseaudio source: %s, %s. \
 		To find a list of your pulseaudio sources run 'pacmd list-sources'\n",
                 audio->source, pa_strerror(error));
