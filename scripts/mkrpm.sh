@@ -66,7 +66,7 @@ do
 done
 
 [ -d ${OUT_DIR}/${DESTDIR}/bin ] && ${SUDO} rm -rf ${OUT_DIR}/${DESTDIR}/bin
-mkdir -p ${OUT_DIR}/${DESTDIR}/bin
+${SUDO} mkdir -p ${OUT_DIR}/${DESTDIR}/bin
 
 ${SUDO} cp mppcava ${OUT_DIR}/${DESTDIR}/bin/mppcava
 ${SUDO} cp mppcava.psf ${OUT_DIR}/${DESTDIR}/share/consolefonts
