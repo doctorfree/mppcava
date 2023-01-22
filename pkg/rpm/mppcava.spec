@@ -8,6 +8,7 @@ BuildRequires:  fftw3-devel
 BuildRequires:  pulseaudio-libs-devel
 BuildRequires:  libtool
 BuildRequires:  ncurses-devel
+BuildRequires:  portaudio-devel
 BuildRequires:  iniparser-devel
 BuildRequires:  make
 URL:        https://github.com/doctorfree/mppcava

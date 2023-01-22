@@ -54,7 +54,7 @@ else
       RELRPM="rpmfusion-free-release-${FEDVER}.noarch.rpm"
       NONRPM="rpmfusion-nonfree-release-${FEDVER}.noarch.rpm"
       PKGS="alsa-lib-devel ncurses-devel fftw3-devel pulseaudio-libs-devel \
-            libtool autoconf-archive"
+            portaudio-devel libtool autoconf-archive"
       if [ "$1" == "-r" ]
       then
         sudo ${PINS} -y remove ${PKGS}
@@ -95,7 +95,7 @@ else
         RELRPM="rpmfusion-free-release-${CENVER}.noarch.rpm"
         NONRPM="rpmfusion-nonfree-release-${CENVER}.noarch.rpm"
         PKGS="alsa-lib-devel ncurses-devel fftw3-devel pulseaudio-libs-devel \
-              libtool autoconf-archive"
+              portaudio-devel libtool autoconf-archive"
         if [ "$1" == "-r" ]
         then
           sudo ${PINS} -y remove ${PKGS}
