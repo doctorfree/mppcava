@@ -77,7 +77,7 @@ Version: ${PKG_VER}-${PKG_REL}
 Section: sound
 Priority: optional
 Architecture: ${ARCH}
-Depends: libncursesw6 (>= 6), libfftw3-dev, libiniparser-dev, libsdl2-dev, libasound2, libpulse-dev
+Depends: libncursesw6 (>= 6), libfftw3-dev, libiniparser-dev, libsdl2-dev, libasound2, libpulse-dev, libportaudio2, portaudio19-dev
 Maintainer: ${DEBFULLNAME} <${DEBEMAIL}>
 Installed-Size: 5000
 Build-Depends: debhelper (>= 11)

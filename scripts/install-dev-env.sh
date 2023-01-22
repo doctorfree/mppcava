@@ -18,8 +18,9 @@ fedora=
 
 if [ "${debian}" ]
 then
-  PKGS="build-essential libfftw3-dev libasound2-dev libncursesw5-dev libpulse-dev \
-        libtool automake autoconf-archive libiniparser-dev libsdl2-2.0-0 libsdl2-dev"
+  PKGS="build-essential libfftw3-dev libasound2-dev libncursesw5-dev \
+        libpulse-dev libtool automake autoconf-archive libiniparser-dev \
+        libsdl2-2.0-0 libsdl2-dev libportaudio2 portaudio19-dev"
   if [ "$1" == "-r" ]
   then
     sudo apt remove ${PKGS}
