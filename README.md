@@ -8,10 +8,13 @@ by [Karl Stavestrand](mailto:karl@stavestrand.no) modified and integrated by [Ro
 
 ![spectrum](https://github.com/karlstav/cava/blob/master/example_files/cava.gif "spectrum")
 
-[Demo video](https://youtu.be/9PSp8VA6yjU)
+[Original `cava` demo video](https://youtu.be/9PSp8VA6yjU)
+
+[MusicPlayerPlus integrated `mppcava` demo video](https://youtu.be/y2yaHm04ELM)
 
 - [What it is](#what-it-is)
 - [Installing](#installing)
+  - [From Release Packages](#from-release-packages)
   - [From Source](#from-source)
   - [Package managers](#package-managers)
 - [Capturing audio](#capturing-audio)
@@ -37,7 +40,7 @@ by [Karl Stavestrand](mailto:karl@stavestrand.no) modified and integrated by [Ro
 What it is
 ----------
 
-Cava is a bar spectrum audio visualizer for terminal (ncurses) or desktop (SDL).
+Mppcava is a bar spectrum audio visualizer for terminal (ncurses) or desktop (SDL).
 
 works on:
 * Linux
@@ -50,6 +53,12 @@ This program is not intended for scientific use. It's written to look responsive
 
 Installing
 ------------------
+
+### From Release Packages
+
+See https://github.com/doctorfree/mppcava/releases to download the latest release package for your platform. Native installation packages are supplied for Arch Linux and Arch-like platforms, Debian based Linux platforms, and RPM based Linux platforms.
+
+See the [Release Notes](pkg/release.md) for platform-specific installation instructions.
 
 ### From Source
 
@@ -74,7 +83,7 @@ Recomended components:
 Optional components:
 * SDL2 dev files
 
-Only FFTW and the other build tools are actually required for CAVA to compile, but this will only give you the ability to read from fifo files. To more easly grab audio from your system pulseaudio, alsa, sndio or portaudio dev files are recommended (depending on what audio system you are using). Not sure how to get the pulseaudio dev files for other distros than debian/ubuntu or if they are bundled in pulseaudio. 
+Only FFTW and the other build tools are actually required for MPPCAVA to compile, but this will only give you the ability to read from fifo files. To more easly grab audio from your system pulseaudio, alsa, sndio or portaudio dev files are recommended (depending on what audio system you are using). Not sure how to get the pulseaudio dev files for other distros than debian/ubuntu or if they are bundled in pulseaudio. 
 
 
 For better a better visual experience ncurses is also recomended.
@@ -445,7 +454,7 @@ Using mppcava in other applications
 
 ### cavacore library
 
-The core processing engine in mppcava has been split into a separate library `cavacore`. See CAVACORE.md for details.
+The core processing engine in mppcava has been split into a separate library `cavacore`. See [CAVACORE.md](CAVACORE.md) for details.
 
 ### Raw Output
 
