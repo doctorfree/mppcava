@@ -466,7 +466,7 @@ A useful starting point example script written in python that consumes raw data 
 Contribution
 ------
 
-Please read CONTRIBUTING.md before opening a pull request.
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request.
 
 Thanks to:
 * [CelestialWalrus](https://github.com/CelestialWalrus)
